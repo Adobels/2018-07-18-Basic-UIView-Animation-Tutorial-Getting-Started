@@ -46,7 +46,26 @@ class ViewController: UIViewController {
   }
   
   override func viewDidAppear(_ animated: Bool) {
+    self.openBasket()
+    self.openNapkins()
+  }
+  
+  func openBasket() {
     
+  }
+  
+  func openNapkins() {
+    UIView.animate(withDuration: 1.0, delay: 1.2, options: .curveEaseOut, animations: {
+        var fabricTopFrame = self.fabricTop.frame
+      fabricTopFrame.origin.y -= fabricTopFrame.size.height
+      var fabricBottomFrame = self.fabricBottom.frame
+      fabricBottomFrame.origin.y += fabricBottomFrame.size.height
+      
+      self.fabricTop.frame = fabricTopFrame
+      self.fabricBottom.frame = fabricBottomFrame
+    }) { (finished) in
+      print("Napkins opened!")
+    }
   }
   
 }
