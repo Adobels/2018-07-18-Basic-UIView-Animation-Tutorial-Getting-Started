@@ -51,10 +51,18 @@ class ViewController: UIViewController {
   }
   
   func openBasket() {
+    self.basketTopConstraint.constant -= basketTop.frame.size.height
+    self.basketBottomConstraint.constant -= basketBottom.frame.size.height
     
+    UIView.animate(withDuration: 0.7, delay: 1.0, options: .curveEaseOut, animations: {
+      self.view.layoutIfNeeded()
+    }) { (finished) in
+      print("Basket doors opened!")
+    }
   }
   
   func openNapkins() {
+    
     UIView.animate(withDuration: 1.0, delay: 1.2, options: .curveEaseOut, animations: {
         var fabricTopFrame = self.fabricTop.frame
       fabricTopFrame.origin.y -= fabricTopFrame.size.height
@@ -66,6 +74,7 @@ class ViewController: UIViewController {
     }) { (finished) in
       print("Napkins opened!")
     }
+    
   }
   
 }

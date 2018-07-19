@@ -37,10 +37,10 @@
                                         <rect key="frame" x="0.0" y="259" width="375" height="388"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                     </imageView>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="door_top" translatesAutoresizingMaskIntoConstraints="NO" id="1ac-Vi-GSv">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="door_top" translatesAutoresizingMaskIntoConstraints="NO" id="1ac-Vi-GSv">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="334"/>
                                     </imageView>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="door_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="pph-eg-fIa">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="door_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="pph-eg-fIa">
                                         <rect key="frame" x="0.0" y="281.5" width="375" height="365.5"/>
                                     </imageView>
                                 </subviews>
