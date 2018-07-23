@@ -28,6 +28,8 @@
 
 import UIKit
 
+import AVFoundation
+
 class ViewController: UIViewController {
   
   @IBOutlet weak var basketTop: UIImageView!
@@ -46,8 +48,14 @@ class ViewController: UIViewController {
   var isBugDead: Bool = false
   var tap: UITapGestureRecognizer!
   
+  let squishPlayer: AVAudioPlayer
+  
   required init?(coder aDecoder: NSCoder) {
+    let squishUrl = Bundle.main.url(forResource: "squish", withExtension: "caf")!
+    squishPlayer = try! AVAudioPlayer(contentsOf: squishUrl)
+    squishPlayer.prepareToPlay()
     super.init(coder: aDecoder)
+    
     
     tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
   }
@@ -134,6 +142,7 @@ class ViewController: UIViewController {
       if isBugDead {return}
       view.removeGestureRecognizer(tap)
       isBugDead = true
+      squishPlayer.play()
       UIView.animate(withDuration: 0.7, delay: 0.0, options: [.curveEaseOut, .beginFromCurrentState], animations: {
         self.bug.transform = CGAffineTransform(scaleX: 1.25, y: 0.75)
         
