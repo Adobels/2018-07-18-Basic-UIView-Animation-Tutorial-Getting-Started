@@ -48,6 +48,7 @@ class ViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     self.openBasket()
     self.openNapkins()
+    self.moveBufLeft()
   }
   
   func openBasket() {
@@ -77,4 +78,39 @@ class ViewController: UIViewController {
     
   }
   
+  func moveBufLeft() {
+    UIView.animate(withDuration: 1.0, delay: 2.0, options: [.curveEaseInOut, .allowUserInteraction], animations: {
+      self.bug.center = CGPoint(x: 75, y: 200)
+    }) { (finished) in
+      print("Bug moved left!")
+      self.faceBugRight()
+    }
+  }
+  
+  func faceBugRight() {
+    UIView.animate(withDuration: 1.0, delay: 0.0, options: [.curveEaseInOut, .allowUserInteraction], animations: {
+      self.bug.transform = CGAffineTransform(rotationAngle: .pi)
+    }) { (finished) in
+      print("Bug faced right!")
+      self.moveBugRight()
+    }
+  }
+  
+  func moveBugRight() {
+    UIView.animate(withDuration: 1.0, delay: 2.0, options: [.curveEaseInOut, .allowUserInteraction], animations: {
+      
+      self.bug.center = CGPoint(x: -75, y: 200)
+    }) { (finshed) in
+      print("Bug moved right!")
+      self.faceBugLeft()
+    }
+  }
+  
+  func faceBugLeft() {
+    UIView.animate(withDuration: 1.0, delay: 0.0, options: [.curveEaseInOut, .allowUserInteraction], animations: {
+      self.bug.transform = CGAffineTransform(rotationAngle: 0.0)
+    }) { (finished) in
+      print("Bug faced left!")
+    }
+  }
 }
