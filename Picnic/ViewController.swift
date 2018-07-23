@@ -41,11 +41,19 @@ class ViewController: UIViewController {
   
   @IBOutlet weak var bug: UIImageView!
   
+  // State
+  
+  var isBugDead: Bool = false
+  var tap: UITapGestureRecognizer!
+  
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+    
+    tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
   }
   
   override func viewDidAppear(_ animated: Bool) {
+    self.view.addGestureRecognizer(tap)
     self.openBasket()
     self.openNapkins()
     self.moveBufLeft()
@@ -85,6 +93,7 @@ class ViewController: UIViewController {
       print("Bug moved left!")
       self.faceBugRight()
     }
+    if isBugDead { return }
   }
   
   func faceBugRight() {
@@ -94,16 +103,18 @@ class ViewController: UIViewController {
       print("Bug faced right!")
       self.moveBugRight()
     }
+    if isBugDead { return }
   }
   
   func moveBugRight() {
     UIView.animate(withDuration: 1.0, delay: 2.0, options: [.curveEaseInOut, .allowUserInteraction], animations: {
       
-      self.bug.center = CGPoint(x: -75, y: 200)
+      self.bug.center = CGPoint(x: self.view.frame.width - 75, y: 250)
     }) { (finshed) in
       print("Bug moved right!")
       self.faceBugLeft()
     }
+    if isBugDead { return }
   }
   
   func faceBugLeft() {
@@ -111,6 +122,30 @@ class ViewController: UIViewController {
       self.bug.transform = CGAffineTransform(rotationAngle: 0.0)
     }) { (finished) in
       print("Bug faced left!")
+    }
+    if isBugDead { return }
+  }
+  
+  @objc func handleTap(_ gesture: UIGestureRecognizer) {
+
+    let tapLocation = gesture.location(in: bug.superview)
+    if (bug.layer.presentation()?.frame.contains(tapLocation))! {
+      print("Bug tapped!")
+      if isBugDead {return}
+      view.removeGestureRecognizer(tap)
+      isBugDead = true
+      UIView.animate(withDuration: 0.7, delay: 0.0, options: [.curveEaseOut, .beginFromCurrentState], animations: {
+        self.bug.transform = CGAffineTransform(scaleX: 1.25, y: 0.75)
+        
+      }) { (finished) in
+        UIView.animate(withDuration: 2.0, delay: 2.0, options: [], animations: {
+          self.bug.alpha = 0.0
+        }, completion: { (finished) in
+          self.bug.removeFromSuperview()
+        })
+      }
+    } else {
+      print("Bug not tapped!")
     }
   }
 }
